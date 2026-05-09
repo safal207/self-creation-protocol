@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/urus966/self-creation-protocol/blob/main/LICENSE)
 
-Repository content is limited to protocol definitions, guardrails, protocol documentation, and examples.
+Repository content is limited to protocol definitions, guardrails, protocol documentation, examples, and optional validation aids.
 
 ## Scope
 
@@ -11,7 +11,9 @@ This repository contains only:
 - `docs/` — protocol documentation
 - `guardrails/` — active protocol files
 - `meta/` — repository-level protocol mapping
-- `examples/` — usage examples
+- `examples/` — usage examples and JSONL traces
+- `schemas/` — machine-checkable event and record schemas
+- `validators/` — external validation aids for observable Level A traces
 
 This repository excludes runtime agents, cognitive internals, and orchestration engines.
 
@@ -24,6 +26,7 @@ This repository excludes runtime agents, cognitive internals, and orchestration 
 - [docs/protocols/Conflict_Rules.md](docs/protocols/Conflict_Rules.md)
 - [docs/protocols/Decision_Record_Protocol.md](docs/protocols/Decision_Record_Protocol.md)
 - [docs/INTEGRATION_PATTERNS.md](docs/INTEGRATION_PATTERNS.md)
+- [docs/VALIDATION_READINESS.md](docs/VALIDATION_READINESS.md)
 - [meta/SYSTEM_MAP.md](meta/SYSTEM_MAP.md)
 
 ## Guardrail Protocols
@@ -38,3 +41,19 @@ This repository excludes runtime agents, cognitive internals, and orchestration 
 - [guardrails/INTERCONNECTION_GUARD_PROTOCOL.md](guardrails/INTERCONNECTION_GUARD_PROTOCOL.md)
 - [guardrails/PROTOCOL_TEMPLATE.md](guardrails/PROTOCOL_TEMPLATE.md)
 - [guardrails/ARCHITECTURE_RULES.md](guardrails/ARCHITECTURE_RULES.md)
+
+## Validation Aids
+
+The repository includes a minimal validation layer for observable Level A traces. It does not inspect, measure, explain, or optimize Presence Space.
+
+Schemas:
+- [schemas/consent-event.schema.json](schemas/consent-event.schema.json)
+- [schemas/protocol-violation.schema.json](schemas/protocol-violation.schema.json)
+- [schemas/drp-record.schema.json](schemas/drp-record.schema.json)
+
+Run examples:
+
+```bash
+python validators/scp_lint.py examples/valid/refusal_honored.jsonl
+python validators/scp_lint.py examples/invalid/silent_auto_continue.jsonl
+```

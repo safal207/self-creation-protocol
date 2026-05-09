@@ -1,0 +1,4 @@
+{"event_id":"evt-101","timestamp":"2026-03-30T10:00:00Z","actor":"system","event_type":"consent_requested","target_protocol":"MRP","consent_state":"requested","presence_space":"active","notes":"System asks whether to move to minimal resolution."}
+{"event_id":"evt-102","timestamp":"2026-03-30T10:02:00Z","actor":"system","event_type":"silence_observed","target_protocol":"MRP","consent_state":"absent","presence_space":"active","notes":"No explicit opt-in was received."}
+{"event_id":"evt-103","timestamp":"2026-03-30T10:02:01Z","actor":"system","event_type":"transition_attempted","target_protocol":"MRP","consent_state":"absent","presence_space":"exited","notes":"Invalid: silence is treated as permission to continue."}
+{"event_id":"evt-104","timestamp":"2026-03-30T10:02:02Z","actor":"system","event_type":"action_executed","target_protocol":"MRP","consent_state":"absent","presence_space":"exited","notes":"Invalid: action executed without explicit opt-in."}

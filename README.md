@@ -102,6 +102,7 @@ The invalid example demonstrates an agent treating silence as permission to cont
 - [docs/protocols/Conflict_Rules.md](docs/protocols/Conflict_Rules.md)
 - [docs/protocols/Decision_Record_Protocol.md](docs/protocols/Decision_Record_Protocol.md)
 - [docs/INTEGRATION_PATTERNS.md](docs/INTEGRATION_PATTERNS.md)
+- [docs/GLOSSARY.md](docs/GLOSSARY.md)
 - [docs/VALIDATION_READINESS.md](docs/VALIDATION_READINESS.md)
 - [docs/GRANT_READINESS.md](docs/GRANT_READINESS.md)
 - [ROADMAP.md](ROADMAP.md)

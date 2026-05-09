@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/safal207/self-creation-protocol/schemas/consent-event.schema.json",
+  "title": "Consent Event",
+  "description": "Machine-checkable event shape for consent-gated transitions in Self-creation Protocol sessions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "timestamp",
+    "actor",
+    "event_type",
+    "target_protocol",
+    "consent_state"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor": {
+      "type": "string",
+      "enum": ["human", "system", "agent", "validator"]
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "consent_requested",
+        "consent_granted",
+        "consent_refused",
+        "silence_observed",
+        "transition_attempted",
+        "transition_blocked",
+        "action_executed",
+        "returned_to_presence"
+      ]
+    },
+    "target_protocol": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consent_state": {
+      "type": "string",
+      "enum": ["unknown", "requested", "explicit_opt_in", "explicit_refusal", "absent"]
+    },
+    "presence_space": {
+      "type": "string",
+      "enum": ["active", "exited", "returned"],
+      "default": "active"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

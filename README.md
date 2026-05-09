@@ -1,21 +1,97 @@
-# self-creation-protocol
+# Self-creation Protocol
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/urus966/self-creation-protocol/blob/main/LICENSE)
+**Consent-aware guardrails for autonomous AI agents.**
 
-Repository content is limited to protocol definitions, guardrails, protocol documentation, examples, and optional validation aids.
+Self-creation Protocol is an open protocol layer for preventing AI systems from treating silence, refusal, hesitation, or non-action as consent.
 
-## Scope
+It defines human-autonomy guardrails, machine-checkable schemas, JSONL examples, and a minimal validator for observable AI-agent traces.
 
-This repository contains only:
-- `protocols/` — placeholder directory for protocol indexing
-- `docs/` — protocol documentation
-- `guardrails/` — active protocol files
+> Silence is not consent. Refusal is not an error. Non-action is not a failure state.
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+---
+
+## Why this exists
+
+Autonomous AI agents increasingly decide when to continue, retry, escalate, persuade, optimize, or act on behalf of a person.
+
+Most agent systems still lack a formal way to distinguish:
+
+- explicit consent
+- silence
+- refusal
+- hesitation
+- non-action
+- unresolved ambiguity
+
+This creates a safety gap: an AI system can appear helpful while quietly turning human non-participation into pressure, escalation, or optimization.
+
+Self-creation Protocol makes those boundary violations visible and testable.
+
+---
+
+## Core idea
+
+The protocol separates two levels:
+
+- **Level A — Behavior:** observable actions, transitions, requests, events, and traces. This layer can be tested.
+- **Level B — Presence:** the human right not to answer, not to act, and not to be optimized. This layer must not be measured, explained, or optimized.
+
+The validator only checks Level A traces. It does not inspect, measure, explain, or optimize Presence Space.
+
+---
+
+## What is included
+
+- `guardrails/` — active consent and non-coercion protocol files
+- `docs/` — protocol documentation and integration notes
 - `meta/` — repository-level protocol mapping
-- `examples/` — usage examples and JSONL traces
+- `examples/` — valid and invalid JSONL traces
 - `schemas/` — machine-checkable event and record schemas
 - `validators/` — external validation aids for observable Level A traces
 
 This repository excludes runtime agents, cognitive internals, and orchestration engines.
+
+---
+
+## Quickstart
+
+Run a valid trace:
+
+```bash
+python validators/scp_lint.py examples/valid/refusal_honored.jsonl
+```
+
+Expected:
+
+```text
+SCP lint: PASS
+```
+
+Run an invalid trace:
+
+```bash
+python validators/scp_lint.py examples/invalid/silent_auto_continue.jsonl
+```
+
+Expected:
+
+```text
+SCP lint: FAIL
+```
+
+The invalid example demonstrates an agent treating silence as permission to continue.
+
+---
+
+## Schemas
+
+- [schemas/consent-event.schema.json](schemas/consent-event.schema.json)
+- [schemas/protocol-violation.schema.json](schemas/protocol-violation.schema.json)
+- [schemas/drp-record.schema.json](schemas/drp-record.schema.json)
+
+---
 
 ## Core Documentation
 
@@ -27,7 +103,11 @@ This repository excludes runtime agents, cognitive internals, and orchestration 
 - [docs/protocols/Decision_Record_Protocol.md](docs/protocols/Decision_Record_Protocol.md)
 - [docs/INTEGRATION_PATTERNS.md](docs/INTEGRATION_PATTERNS.md)
 - [docs/VALIDATION_READINESS.md](docs/VALIDATION_READINESS.md)
+- [docs/GRANT_READINESS.md](docs/GRANT_READINESS.md)
+- [ROADMAP.md](ROADMAP.md)
 - [meta/SYSTEM_MAP.md](meta/SYSTEM_MAP.md)
+
+---
 
 ## Guardrail Protocols
 
@@ -42,18 +122,43 @@ This repository excludes runtime agents, cognitive internals, and orchestration 
 - [guardrails/PROTOCOL_TEMPLATE.md](guardrails/PROTOCOL_TEMPLATE.md)
 - [guardrails/ARCHITECTURE_RULES.md](guardrails/ARCHITECTURE_RULES.md)
 
-## Validation Aids
+---
 
-The repository includes a minimal validation layer for observable Level A traces. It does not inspect, measure, explain, or optimize Presence Space.
+## Initial use cases
 
-Schemas:
-- [schemas/consent-event.schema.json](schemas/consent-event.schema.json)
-- [schemas/protocol-violation.schema.json](schemas/protocol-violation.schema.json)
-- [schemas/drp-record.schema.json](schemas/drp-record.schema.json)
+- AI-agent safety evaluations
+- consent-aware assistant design
+- anti-dark-pattern interface audits
+- agent trace conformance testing
+- digital autonomy and human-agency research
+- wellbeing-oriented AI systems where non-action must remain valid
 
-Run examples:
+---
 
-```bash
-python validators/scp_lint.py examples/valid/refusal_honored.jsonl
-python validators/scp_lint.py examples/invalid/silent_auto_continue.jsonl
-```
+## Grant-ready framing
+
+A concise research framing:
+
+> Can consent-boundary violations in AI-agent behavior be detected from observable traces before the system escalates, pressures, or acts without explicit opt-in?
+
+See [docs/GRANT_READINESS.md](docs/GRANT_READINESS.md) for the problem statement, deliverables, and funding angles.
+
+---
+
+## Status
+
+Early protocol and validation-readiness prototype.
+
+Current focus:
+
+1. stabilize schemas
+2. expand valid/invalid trace fixtures
+3. improve validator coverage
+4. document integration patterns for AI agents
+5. connect with trace systems such as LTP/CML-style audit layers
+
+---
+
+## License
+
+MIT License.

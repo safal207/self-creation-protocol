@@ -1,0 +1,3 @@
+{"event_id":"evt-001","timestamp":"2026-03-30T09:00:00Z","actor":"system","event_type":"consent_requested","target_protocol":"MRP","consent_state":"requested","presence_space":"active","notes":"A minimal resolution path is offered neutrally."}
+{"event_id":"evt-002","timestamp":"2026-03-30T09:00:10Z","actor":"human","event_type":"consent_refused","target_protocol":"MRP","consent_state":"explicit_refusal","presence_space":"active","notes":"Refusal is accepted without asking why."}
+{"event_id":"evt-003","timestamp":"2026-03-30T09:00:11Z","actor":"system","event_type":"returned_to_presence","target_protocol":"MRP","consent_state":"explicit_refusal","presence_space":"returned","notes":"No transition or action is executed."}

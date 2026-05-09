@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/safal207/self-creation-protocol/schemas/protocol-violation.schema.json",
+  "title": "Protocol Violation",
+  "description": "Normalized record for observable Self-creation Protocol boundary violations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "violation_id",
+    "timestamp",
+    "protocol",
+    "severity",
+    "red_line",
+    "observed_event_id"
+  ],
+  "properties": {
+    "violation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "protocol": {
+      "type": "string",
+      "enum": ["SCP", "CRP", "RHP", "EIP", "MRP", "NoUO", "IGP", "CQMP", "DRP"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "warning", "error", "blocker"]
+    },
+    "red_line": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed_event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommended_response": {
+      "type": "string",
+      "enum": ["illuminate", "block_transition", "return_to_presence", "minimal_resolution", "notify_and_stop"]
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

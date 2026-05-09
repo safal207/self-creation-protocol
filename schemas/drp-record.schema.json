@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/safal207/self-creation-protocol/schemas/drp-record.schema.json",
+  "title": "Decision Record Protocol Record",
+  "description": "Machine-checkable schema for a DRP record. Mirrors the normative Decision_Record_Protocol.md fields.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "context",
+    "options",
+    "decision",
+    "status",
+    "outcome",
+    "impact",
+    "timestamp",
+    "parent_record_ids",
+    "child_record_ids"
+  ],
+  "properties": {
+    "record_id": {"type": "string", "minLength": 1},
+    "context": {"type": "string", "minLength": 1},
+    "options": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "decision": {"type": "string", "minLength": 1},
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "complete", "incomplete", "superseded"]
+    },
+    "outcome": {"type": ["string", "null"]},
+    "impact": {
+      "oneOf": [
+        {"type": "integer", "enum": [-1, 0, 1]},
+        {"type": "string", "enum": ["-1", "0", "+1"]},
+        {"type": "null"}
+      ]
+    },
+    "timestamp": {"type": "string", "format": "date-time"},
+    "parent_record_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "child_record_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "related_records": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "actors_involved": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "confidence_level": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "source_of_decision": {
+      "type": "string",
+      "enum": ["CQMP", "linear", "human"]
+    },
+    "semantic_index": {
+      "oneOf": [
+        {"type": "string"},
+        {"type": "object"},
+        {"type": "null"}
+      ]
+    },
+    "supersedes_record_id": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "complete"}}},
+      "then": {
+        "properties": {
+          "outcome": {"type": "string", "minLength": 1},
+          "impact": {
+            "oneOf": [
+              {"type": "integer", "enum": [-1, 0, 1]},
+              {"type": "string", "enum": ["-1", "0", "+1"]}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"enum": ["proposed", "incomplete"]}}},
+      "then": {
+        "properties": {
+          "outcome": {"type": "null"},
+          "impact": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "superseded"}}},
+      "then": {"required": ["supersedes_record_id"]}
+    }
+  ]
+}
